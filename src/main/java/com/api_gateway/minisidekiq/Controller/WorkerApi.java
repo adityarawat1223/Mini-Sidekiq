@@ -17,7 +17,6 @@ public class WorkerApi {
 
     @PostMapping("/pushwork")
     public void PushApi(@RequestBody WorkInfo Work) {
-
-        redis.opsForList().rightPush("jobs" , Integer.toString(Work.WorkId));
-    };
+        redis.opsForList().leftPush("jobs" , Integer.toString(Work.WorkId));
+    }
 }
