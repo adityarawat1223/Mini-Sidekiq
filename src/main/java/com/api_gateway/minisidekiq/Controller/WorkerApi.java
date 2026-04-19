@@ -21,15 +21,19 @@ public class WorkerApi {
     }
 
     @PostMapping("/pushwork")
-    public void PushApi(@RequestBody WorkInfo Work) {
-        String JobId = UUID.randomUUID().toString();
-        Map<String, String> HashMap = new HashMap<>();
-        redis.opsForList().leftPush("Jobs",JobId);
-        HashMap.put("status" ,"Pending");
-        HashMap.put("timestamps"  , Long.toString( java.time.Instant.now().getEpochSecond()));
-        HashMap.put("Info",Work.toString());
-        redis.opsForHash().putAll(JobId,HashMap);
-        //Dead Man switch
-        redis.expire(JobId,1, TimeUnit.DAYS);
+    public String pushApi(@RequestBody WorkInfo work) {
+
+        String jobId = UUID.randomUUID().toString();
+
+        Map<String, String> data = new HashMap<>();
+        data.put("status", "Pending");
+        data.put("timestamp", String.valueOf(java.time.Instant.now().getEpochSecond()));
+        data.put("info", work.toString());
+
+        redis.opsForList().leftPush("jobs", jobId);
+        redis.opsForHash().putAll(jobId, data);
+        redis.expire( jobId, 1, TimeUnit.DAYS);
+
+        return jobId;
     }
 }
