@@ -17,7 +17,7 @@ with safety features Like Safety Queue and Multithreading
 * **Dead Man's Switch:** Implemented TTL-based memory reclamation to ensure Redis storage remains optimized.
 ## Api
 
-```json
+```
 POST http://localhost:8080/pushwork
         
 Content-Type: application/json
@@ -31,7 +31,7 @@ Content-Type: application/json
 Returns a Job Id and Print Which Thread Completed Task,
 Info of work is stored in redis which you can retrieve With a Get Api according to need
 
-```json
+```
 56d657f2-9715-4177-ae23-e7e84581149f // job Id (String)
 Worker-2 processed 56d657f2-9715-4177-ae23-e7e84581149f
 ```
@@ -44,12 +44,12 @@ Worker-2 processed 56d657f2-9715-4177-ae23-e7e84581149f
 ## Setup
 
 Run Redis on you Linux Terminal or Any O.S
-```bash
+```
 // for Linux ( i used WSL2 you can use Same command)
 sudo apt install redis-server
 sudo server redis-server start
 ```
 Run your Application
-```Java
+```
 gradlew.bat bootRun ; // windows
 ```
